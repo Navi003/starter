@@ -69,6 +69,7 @@ const clientJs = readFileSync(`${__dirname}/client.js`, "utf-8");
 
 const server = createServer((req, res) => {
   const pathName = parse(req.url, true).pathname;
+  //   console.log(pathName);
 
   if (pathName === "/") {
     const renderdHtml = renderToString(<Home />);
@@ -77,10 +78,13 @@ const server = createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(html);
   } else if (pathName === "/client.js") {
+    // console.log(pathName);
     res.writeHead(200, { "Content-Type": "application/javascript" });
     res.end(clientJs);
+  } else {
+    res.end("The Url can not be found");
   }
-  res.end("Hello World");
+  res.end();
 });
 
 server.listen(8000, () => console.log("Listening for requesting on port 8000"));
